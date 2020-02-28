@@ -1,0 +1,121 @@
+%---------------------------------------------------------------------------------------------------
+\documentclass[a4paper, 10pt, twoside]{article}
+\input{../../Lectures/latex/style_art_es_1.tex}
+
+%---------------------------------------------------------------------------------------------------
+% \SetWatermarkText{\Sexpr{REP_watermark}}
+% \SetWatermarkScale{0.35}
+\SetWatermarkText{}
+\SetWatermarkColor[cmyk]{0, 0, 0, 0.15}
+
+% Bibliography -------------------------------------------------------------------------------------
+\addbibresource{../../Lectures/bibtex/bibliography_articles.bib}
+\addbibresource{../../Lectures/bibtex/bibliography_books.bib}
+
+% Title --------------------------------------------------------------------------------------------
+\title{\fontsize{20}{20}\selectfont \textbf{Modelación de epidemias}}
+\author{Pedro Guarderas}
+\date{\today}
+\makeindex
+\sloppy
+
+%---------------------------------------------------------------------------------------------------
+\begin{document}
+\pagestyle{artsecstyle}
+
+\pagenumbering{arabic}
+\maketitle
+\tableofcontents
+
+\begin{abstract}
+Not yet prepared \ldots
+\end{abstract}
+
+%---------------------------------------------------------------------------------------------------
+\clearpage
+\pagestyle{artstyle}
+\section{Introducción}
+
+\begin{definition}
+Una \emph{epidemia} es una enfermedad que ataca a un gran número de seres vivos en mismo lugar y 
+durante un mismo período de tiempo.
+\end{definition}
+
+%---------------------------------------------------------------------------------------------------
+\clearpage
+\section{Modelos basados en ecuaciones diferenciales}
+Para interés de la epidemiología, no basta con encontrar y presentar una solución numérica al 
+problema propuesto, mucho más importante es estudiar su dinámica y comportamiento, la solución 
+numérica, no responde ciertas preguntas de carácter cualitativo que caracterizan al sistema 
+dinámico.
+
+\subsection{Consideraciones previas}
+\begin{enumerate}
+	\item $S=$ Susceptibles
+	\item $E=$ Expuestos
+	\item $I=$ Infectados
+	\item $R=$ Resistentes
+	\item $M=$ Portadores
+\end{enumerate}
+
+%---------------------------------------------------------------------------------------------------
+\subsection{Modelos dinámicos clásicos}
+Caracterizar el comportamiento de la enfermedad que produce la epidemia. 
+
+Tasa de recuperación, tasa de mortalidad de enfermes, tasa de infección, nivel de incubación, 
+distribución espacial, características patológicas, duración.
+
+Es importante responder si la epidemia se va a propagar
+
+%---------------------------------------------------------------------------------------------------
+\subsubsection{Modelo SIR}
+tasa de infección $\alpha > 0$ y la tasa de recuperación $\beta > 0$.
+\begin{align}
+\frac{dS}{dt} & = -\alpha S I \\
+\frac{dI}{dt} & = \alpha S I - \beta I \nonumber \\
+\frac{dR}{dt} & = \beta I \nonumber
+\end{align}
+
+%---------------------------------------------------------------------------------------------------
+\subsection{Estudio cualitativo}
+
+Determinación de puntos de equilibrio
+
+Total de población enferma
+
+%---------------------------------------------------------------------------------------------------
+\subsection{Modelos dinámicos que consideran la difusión espacial}
+En general se puede establecer un modelo bastante más elaborado que tome en cuenta la dispersión 
+espacial de una epidemia.
+\begin{align}
+\frac{\partial S}{\partial t} & = d_1 \Delta S + f_1( S, E, I, R) \\
+\frac{\partial E}{\partial t} & = d_2 \Delta E + f_2( S, E, I, R) \nonumber \\
+\frac{\partial I}{\partial t} & = d_3 \Delta I + f_3( S, E, I, R) \nonumber \\
+\frac{\partial R}{\partial t} & = d_4 \Delta R + f_4( S, E, I, R) \nonumber
+\end{align}
+
+$\Delta S = \dfrac{\partial^2 S}{\partial x^2} + \dfrac{\partial^2 S}{\partial y^2}$
+
+Condiciones de borde Neumann homegéneas.
+\begin{equation}
+\frac{\partial S}{\partial \eta}( x, t ) = 
+\frac{\partial E}{\partial \eta}( x, t ) = 
+\frac{\partial I}{\partial \eta}( x, t ) = 
+\frac{\partial R}{\partial \eta}( x, t ) = 0 \qquad \forall x \in \partial \Omega
+\end{equation}
+
+Condiciones iniciales.
+\begin{equation}
+S( x, 0 ) = S_0( x ),\quad E( x, 0 ) = E_0( x ),\quad I( x, 0 ) = I_0,\quad R( x, 0 ) = R_0( x )
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------
+% Bibliography
+\clearpage
+\textcite{accu_stab_num_alg, fun_ergo_theo, pde_evans, trans_equ_bio_2007, 
+	real_comp_ana_1987, func_ana_1987}
+
+\section{Bibliografía}
+\printbibliography[heading = none]
+ 
+\end{document}
