@@ -1,0 +1,105 @@
+%---------------------------------------------------------------------------------------------------
+\section{Epidemiología y Matemáticas}
+\begin{frame}[fragile]
+\frametitle{Epidemiología y Matemáticas}
+Una \emph{epidemia} es una enfermedad que ataca a un gran número de personas o de animales en un 
+mismo lugar durante un período de tiempo. Cuando la enfermedad supera las barreras de varios
+países se habla de un \emph{pandemia}. 
+\newline
+
+La \emph{epidemiología teórica} se encarga de generar modelos matemáticos para representar la 
+enfermedad.
+\newline
+
+Para interés de la epidemiología, no basta con encontrar y presentar una solución numérica al 
+problema propuesto, mucho más importante es estudiar su dinámica y comportamiento, la solución 
+numérica, no responde ciertas preguntas de tipo cualitativo que caracterizan al sistema 
+dinámico y por tanto la evolución de la enfermedad.
+\end{frame}
+
+%---------------------------------------------------------------------------------------------------
+\section{Número básico de reproducción}
+\begin{frame}[fragile]
+\frametitle{Número básico de reproducción}
+Número esperado de casos secundarios producidos por un individuo infectado durante su periodo total
+de infección, en una población solo compuesta por individuos susceptibles.
+\begin{equation}
+R_0 = \int\limits_0^\infty b( u ) F( u )\, du
+\end{equation}
+\end{frame}
+
+%---------------------------------------------------------------------------------------------------
+\section{Modelos continuos}
+\begin{frame}[fragile]
+\frametitle{Modelos continuos}
+Este tipo de modelos están usualmente basados en ecuaciones diferenciales. Las formulaciones más
+usuales consideran las siguientes variables:
+\begin{enumerate}
+	\item $S=$ Susceptibles. Individuos sanos y que pueden contraer la enfermedad.
+	\item $E=$ Expuestos. Individuos infectados pero que no pueden contagiar la enfermedad.
+	\item $I=$ Infectados. Individuos infectados y que pueden contagiar a otros.
+	\item $R=$ Resistentes. Individuos resistentes a la enfermedad, normalmente la han superado o han 
+	sido vacunados.
+	\item $M=$ Portadores. Individuos que portan la enfermedad pero puede que no la padezcan nunca.
+\end{enumerate}
+\end{frame}
+
+%---------------------------------------------------------------------------------------------------
+\subsection{Modelos SIR}
+\begin{frame}[fragile]
+\frametitle{Modelo SIR}
+Modelo propuesto por William Kermack y Anderson McKendrick alrededor de 1927. Es uno de los primeros
+modelos continuos para epidemias, establece un sistema dinámico para la evolución de los 
+susceptibles $S$, infectados $I$ y resistentes $R$.
+\begin{align}
+\frac{dS}{dt} & = -\alpha S I \nonumber \\
+\frac{dI}{dt} & = \alpha S I - \beta I \\
+\frac{dR}{dt} & = \beta I \nonumber
+\end{align}
+Donde, $\alpha > 0$ es la \emph{tasa de infección} y $\beta > 0$ es la \emph{tasa de recuperación}.
+\newline
+El modelo diferencial para estar completamente determinado se requiere estimar los parámetros 
+$\alpha$, $\beta$ y establecer condiciones iniciales $S(0) = S_0, I(0) = I_0, R(0) = R_0$.
+\end{frame}
+
+
+%---------------------------------------------------------------------------------------------------
+\subsection{Modelos SIR estimación}
+\begin{frame}[fragile]
+\frametitle{Modelo SIR estimación}
+
+\end{frame}
+
+%---------------------------------------------------------------------------------------------------
+\subsection{Modelos SIR ejemplo}
+\begin{frame}[fragile]
+\frametitle{Modelo SIR ejemplo}
+\begin{figure}
+\centering
+\includegraphics[scale=0.65]{graf_phase_sir}
+\end{figure}
+\end{frame}
+
+%---------------------------------------------------------------------------------------------------
+\subsection{Modelos SIR incluyendo mortalidad}
+\begin{frame}[fragile]
+\frametitle{Modelos SIR incluyendo mortalidad}
+Cuando la enfermedad puede llevar a la muerte, es importante incluir este factor en el modelo; 
+tomando en cuenta además la tasa de mortalidad propia de la población $\mu$ y la mortalidad debida
+a la enfermedad $\eta$.
+\begin{align}
+\frac{dS}{dt} & = -\alpha S I + \mu ( 1 - S ) + \eta \beta I \nonumber \\
+\frac{dI}{dt} & = \alpha S I - ( \mu + \beta ) I \\
+\frac{dR}{dt} & = ( 1 - \eta ) \beta I - \mu R \nonumber
+\end{align}
+\end{frame}
+
+%---------------------------------------------------------------------------------------------------
+\subsection{Modelos SIR incluyendo mortalidad ejemplo}
+\begin{frame}[fragile]
+\frametitle{Modelos SIR incluyendo mortalidad ejemplo}
+\begin{figure}
+\centering
+\includegraphics[scale=0.65]{graf_phase_sir_mor}
+\end{figure}
+\end{frame}

@@ -1,0 +1,112 @@
+%---------------------------------------------------------------------------------------------------
+\documentclass[10pt]{beamer}
+
+\usepackage[spanish,es-tabla]{babel}      
+\usepackage{color}
+\usepackage[utf8]{inputenc} 
+\usepackage{ctable}
+\usepackage{actuarialangle}
+\usepackage{actuarialsymbol}
+% \usepackage[frenchstyle,nomath]{kpfonts}
+% \usepackage{libertine}
+\usepackage{fourier}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+%---------------------------------------------------------------------------------------------------
+\definecolor{slide_green}{RGB}{146, 208, 80}
+\definecolor{slide_blue}{RGB}{0, 32, 96}
+\definecolor{slide_bluec}{RGB}{240, 245, 255}
+\definecolor{olivegreen}{cmyk}{0.64, 0, 0.95, 0.40}
+\definecolor{olivegreenc}{cmyk}{0.032, 0, 0.0475, 0.02}
+
+\usetheme{default}
+\usecolortheme{orchid}
+
+\setbeamercolor{item projected}{bg=slide_blue}
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}
+\setbeamercolor{structure}{fg=slide_blue}
+\setbeamercolor{block title}{fg=slide_blue}
+\setbeamercolor{local structure}{fg=slide_blue}
+
+%---------------------------------------------------------------------------------------------------
+\setbeamerfont{title}{size=\Huge,series=\bfseries}
+\setbeamercolor{title}{fg=slide_blue,bg=white}
+
+%\setbeamertemplate{title}{fg=,bg=lvelez}
+% \setbeamercolor{structure}{fg=lvelez}
+\setbeamercolor{block title}{fg=slide_blue,bg=slide_green}
+\setbeamercolor{block body}{bg=slide_bluec}
+\setbeamercolor{palette quaternary}{fg=white,bg=slide_blue}
+\setbeamercolor{titlelike}{parent=palette quaternary}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamertemplate{frametitle}{
+\nointerlineskip
+
+\begin{beamercolorbox}[sep=0.3cm,ht=1.8em,wd=\paperwidth]{frametitle}
+    \vbox{}\vskip-2ex
+    \strut\insertframetitle\strut
+    \vskip-0.8ex
+\end{beamercolorbox}
+}
+
+\setbeamertemplate{footline}{
+\leavevmode
+\hbox{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=.25ex,dp=2ex,center]{footline}
+    % \flushleft\includegraphics[width=1.5cm]{LOGO_Risko}
+  \end{beamercolorbox} 
+  }
+}
+
+%---------------------------------------------------------------------------------------------------
+\title{Modelos Epidemiológicos}
+\subtitle{Creación y manejo}
+\author{ MSc. Pedro Guarderas\\
+        {\small pedro.felipe.guarderas@gmail.com}}
+\date{}
+
+%---------------------------------------------------------------------------------------------------
+\AtBeginSection{\frame{\sectionpage}}
+\newtranslation{Section}{Sección}
+\setbeamertemplate{frametitle continuation}{}
+
+%---------------------------------------------------------------------------------------------------
+\begin{document}
+
+<<include=FALSE>>=
+opts_chunk$set(concordance=TRUE)
+@
+
+%---------------------------------------------------------------------------------------------------
+\frame{\titlepage}
+
+%---------------------------------------------------------------------------------------------------
+\begin{frame}[allowframebreaks]
+\frametitle{Contenidos}
+\tableofcontents
+\end{frame}
+\AtBeginSection[]
+{
+ \begin{frame}[allowframebreaks]
+      \frametitle{Contenidos}
+      \tableofcontents[currentsection]
+ \end{frame}
+}
+\AtBeginSubsection[]
+{
+ \begin{frame}[allowframebreaks]
+      \frametitle{Contenidos}
+      \tableofcontents[currentsection,currentsubsection]
+ \end{frame}
+}
+
+%---------------------------------------------------------------------------------------------------
+<<'01chp', child='01_introduccion.Rnw'>>=
+@
+
+\end{document}
