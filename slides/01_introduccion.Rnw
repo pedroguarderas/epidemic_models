@@ -1,7 +1,7 @@
 %---------------------------------------------------------------------------------------------------
-\section{Epidemiología y Matemáticas}
+\section{Epidemiología}
 \begin{frame}[fragile]
-\frametitle{Epidemiología y Matemáticas}
+\frametitle{Epidemiología}
 Una \emph{epidemia} es una enfermedad que ataca a un gran número de personas o de animales en un 
 mismo lugar durante un período de tiempo. Cuando la enfermedad supera las barreras de varios
 países se habla de un \emph{pandemia}. 
@@ -18,14 +18,17 @@ dinámico y por tanto la evolución de la enfermedad.
 \end{frame}
 
 %---------------------------------------------------------------------------------------------------
-\section{Número básico de reproducción}
+\section{Modelización}
 \begin{frame}[fragile]
-\frametitle{Número básico de reproducción}
-Número esperado de casos secundarios producidos por un individuo infectado durante su periodo total
-de infección, en una población solo compuesta por individuos susceptibles.
-\begin{equation}
-R_0 = \int\limits_0^\infty b( u ) F( u )\, du
-\end{equation}
+\frametitle{Modelización}
+La creación de un modelo matemático exige tener en cuenta los siguientes pasos.
+\begin{enumerate}
+\item Conceptualización
+\item Análisis
+\item Estimación
+\item Cálculo
+\item Calibración
+\end{enumerate}
 \end{frame}
 
 %---------------------------------------------------------------------------------------------------
@@ -35,12 +38,13 @@ R_0 = \int\limits_0^\infty b( u ) F( u )\, du
 Este tipo de modelos están usualmente basados en ecuaciones diferenciales. Las formulaciones más
 usuales consideran las siguientes variables:
 \begin{enumerate}
-	\item $S=$ Susceptibles. Individuos sanos y que pueden contraer la enfermedad.
-	\item $E=$ Expuestos. Individuos infectados pero que no pueden contagiar la enfermedad.
-	\item $I=$ Infectados. Individuos infectados y que pueden contagiar a otros.
-	\item $R=$ Resistentes. Individuos resistentes a la enfermedad, normalmente la han superado o han 
-	sido vacunados.
-	\item $M=$ Portadores. Individuos que portan la enfermedad pero puede que no la padezcan nunca.
+	\item $S=$ \emph{Susceptibles}. Individuos sanos y que pueden contraer la enfermedad.
+	\item $E=$ \emph{Expuestos}. Individuos infectados pero que no pueden contagiar la enfermedad.
+	\item $I=$ \emph{Infectados}. Individuos infectados y que pueden contagiar a otros.
+	\item $R=$ \emph{Resistentes}. Individuos resistentes a la enfermedad, normalmente la han 
+	superado o han sido vacunados.
+	\item $M=$ \emph{Portadores}. Individuos que portan la enfermedad pero puede que no la padezcan 
+	nunca.
 \end{enumerate}
 \end{frame}
 
@@ -49,8 +53,8 @@ usuales consideran las siguientes variables:
 \begin{frame}[fragile]
 \frametitle{Modelo SIR}
 Modelo propuesto por William Kermack y Anderson McKendrick alrededor de 1927. Es uno de los primeros
-modelos continuos para epidemias, establece un sistema dinámico para la evolución de los 
-susceptibles $S$, infectados $I$ y resistentes $R$.
+modelos continuos para epidemias, establece un sistema dinámico para la evolución de una población 
+donde los individuos son caracterizados como: susceptibles $S$, infectados $I$ y resistentes $R$.
 \begin{align}
 \frac{dS}{dt} & = -\alpha S I \nonumber \\
 \frac{dI}{dt} & = \alpha S I - \beta I \\
@@ -59,19 +63,45 @@ susceptibles $S$, infectados $I$ y resistentes $R$.
 Donde, $\alpha > 0$ es la \emph{tasa de infección} y $\beta > 0$ es la \emph{tasa de recuperación}.
 \newline
 El modelo diferencial para estar completamente determinado se requiere estimar los parámetros 
-$\alpha$, $\beta$ y establecer condiciones iniciales $S(0) = S_0, I(0) = I_0, R(0) = R_0$.
+$\alpha$, $\beta$, establecer condiciones iniciales $S(0) = S_0, I(0) = I_0, R(0) = R_0$ y 
+un horizonte de proyección prudencial $T$ > 0.
 \end{frame}
 
-
 %---------------------------------------------------------------------------------------------------
-\subsection{Modelos SIR estimación}
+\subsection{Número básico de reproducción}
 \begin{frame}[fragile]
-\frametitle{Modelo SIR estimación}
+\frametitle{Número básico de reproducción}
+Número esperado de casos secundarios producidos por un individuo infectado durante su periodo total
+de infección, en una población solo compuesta por individuos susceptibles. La fórmula tiene origen 
+en los modelos de natalidad utilizados en demografía.
+\begin{equation}
+\mathcal{R}_0 = \int\limits_0^\infty b( t ) F( t )\, dt
+\end{equation}
 
+Donde $F$ es la probabilidad de continuar infectado si se está infectado y $b$ es el número medio 
+de nuevos infectados producidos por un individuo infectado.
+
+Para el caso del modelo SIR, $F( t ) = e^{-\beta t}$ y $b( t ) = \alpha$.
+\begin{equation}
+\mathcal{R}_0 = \int\limits_0^\infty \alpha e^{-\beta t}\, dt = \frac{\alpha}{\beta}
+\end{equation}
 \end{frame}
 
 %---------------------------------------------------------------------------------------------------
 \subsection{Modelos SIR ejemplo}
+\begin{frame}[fragile]
+\frametitle{Modelos SIR ejemplo}
+Se considera diferentes condiciones iniciales para generar las diferentes trayectorias del sistema 
+dinámico.
+\begin{equation}
+S_0 + I_0 = 1.0\qquad R_0 = 0
+\end{equation}
+Los parámetros utilizados son $\alpha = 0.5, \beta = 0.15$.
+\newline
+
+El método numérico implementado es el esquema usual de Euler explícito.
+\end{frame}
+
 \begin{frame}[fragile]
 \frametitle{Modelo SIR ejemplo}
 \begin{figure}
@@ -85,7 +115,7 @@ $\alpha$, $\beta$ y establecer condiciones iniciales $S(0) = S_0, I(0) = I_0, R(
 \begin{frame}[fragile]
 \frametitle{Modelos SIR incluyendo mortalidad}
 Cuando la enfermedad puede llevar a la muerte, es importante incluir este factor en el modelo; 
-tomando en cuenta además la tasa de mortalidad propia de la población $\mu$ y la mortalidad debida
+tomando en cuenta la tasa de mortalidad propia de la población $\mu$ y la mortalidad debida
 a la enfermedad $\eta$.
 \begin{align}
 \frac{dS}{dt} & = -\alpha S I + \mu ( 1 - S ) + \eta \beta I \nonumber \\
@@ -95,11 +125,73 @@ a la enfermedad $\eta$.
 \end{frame}
 
 %---------------------------------------------------------------------------------------------------
+\subsection{Número básico de reproducción}
+\begin{frame}[fragile]
+\frametitle{Número básico de reproducción}
+
+Para el caso del modelo SIR con mortalidad, $F( t ) = e^{-(\beta + \mu ) t}$ y $b( t ) = \alpha$.
+\begin{equation}
+\mathcal{R}_0 = \int\limits_0^\infty \alpha e^{-(\beta + \mu) t}\, dt =
+\frac{\alpha}{\beta + \mu}
+\end{equation}
+
+Punto de equilibrio
+\begin{equation}
+( S, I, R ) = \left( \frac{\beta + \mu}{\alpha}, 
+\frac{\mu(\alpha-\beta-\mu)}{\alpha(\mu + ( 1 - \eta)\beta)},
+\frac{(1-\eta)\beta(\alpha-\beta-\mu)}{\alpha(\mu + ( 1 - \eta)\beta)} \right)
+\end{equation}
+\end{frame}
+
+%---------------------------------------------------------------------------------------------------
 \subsection{Modelos SIR incluyendo mortalidad ejemplo}
+\begin{frame}[fragile]
+\frametitle{Modelos SIR incluyendo mortalidad ejemplo}
+Se considera diferentes condiciones iniciales para generar diferentes trayectorias del sistema 
+dinámico. 
+\begin{equation}
+S_0 + I_0 = 1.0\qquad R_0 = 0
+\end{equation}
+Los parámetros utilizados son $\alpha = 0.5, \beta = 0.15, \eta = 0.12, \mu = 0.01$.
+\newline
+
+El método numérico implementado es el esquema de cuarto orden de Runge-Kutta.
+\end{frame}
+
 \begin{frame}[fragile]
 \frametitle{Modelos SIR incluyendo mortalidad ejemplo}
 \begin{figure}
 \centering
 \includegraphics[scale=0.65]{graf_phase_sir_mor}
 \end{figure}
+\end{frame}
+
+%---------------------------------------------------------------------------------------------------
+\subsection{Modelos SIR estimación}
+\begin{frame}[fragile]
+\frametitle{Modelo SIR estimación}
+Los parámetros $\alpha, \beta, \eta, \mu$ que componen el modelo SIR no son conocidos a priori y 
+deben ser estimados a partir de la información disponible de la población.
+\end{frame}
+
+%---------------------------------------------------------------------------------------------------
+\subsection{Observaciones}
+\begin{frame}[fragile]
+\frametitle{Observaciones}
+Muchos resultados de sistemas dinámicos son necesarios para comprender el comportamiento de los 
+modelos epidemiológicos. Así se puede comprender la estabilidad, equilibrio, incidencia máxima.
+\newline
+
+Debido a la no linealidad de estos modelos, para realizar los cálculos numéricos se requiere
+de algoritmos debidamente implementados, con alta precisión y estabilidad.
+\newline
+
+El enfrentar una epidemia requiere manejo honesto, disciplinado y diligente de la información 
+estadística, esta será muy útil para la actualización y generación de modelos y así tomar 
+decisiones de salud pública adecuadas y oportunas.
+\newline
+
+Las epidemias tienden a desarrollarse más rápido si la densidad de susceptibles es alta, por 
+ejemplo, sobrepoblación, y si la tasa de retiro, $\beta$, es baja, por ejemplo, tratamiento médico 
+insuficiente.
 \end{frame}

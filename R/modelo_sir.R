@@ -36,8 +36,8 @@ I0 <- seq( 0.01, 1.0, length.out = m )
 S0 <- 1 - I0
 R0 <- rep( 0, m )
 
-alpha <- 0.55
-beta <- 0.2
+alpha <- 0.5
+beta <- 0.15
 rho <- beta / alpha
 
 n <- 1e3
@@ -53,7 +53,7 @@ x_brk <- seq( 0, 1, length.out = 11 )
 y_brk <- seq( 0, 1, length.out = 11 )
 
 plt_phase <- ggplot( data = sol ) +
-  geom_path( aes( x = S, y = I, group = m ), color = 'dodgerblue4' ) + 
+  geom_path( aes( x = S, y = I, group = m ), color = 'dodgerblue4', size = 0.5 ) + 
   geom_abline( intercept = 1, slope = -1, color = 'red4', linetype = 'dashed' ) +
   geom_vline( xintercept = rho, color = 'orange', linetype = 'dashed' ) +
   scale_x_continuous( breaks = x_brk, limits = c( 0, 1 ) ) +
@@ -82,11 +82,11 @@ mu <- 0.01
 rho <- ( beta + mu ) / alpha
 
 e <- c( ( beta + mu ) / alpha , 
-        mu * ( alpha - beta - mu ) / ( alpha * ( mu + beta ) ),
-        ( 1 - eta ) * beta * ( alpha - beta - mu ) / ( alpha * ( mu + beta ) ) )
+        mu * ( alpha - beta - mu ) / ( alpha * ( mu + ( 1 - eta ) * beta ) ),
+        ( 1 - eta ) * beta * ( alpha - beta - mu ) / ( alpha * ( mu + ( 1 - eta ) * beta ) ) )
 
-n <- 1000
-t <- seq( 0, 120, length.out = n )
+n <- 1500
+t <- seq( 0, 240, length.out = n )
 
 sol <- NULL
 for ( k in 1:length( I0 ) ) {
@@ -98,9 +98,10 @@ x_brk <- seq( 0, 1, length.out = 11 )
 y_brk <- seq( 0, 1, length.out = 11 )
 
 plt_phase <- ggplot( data = sol ) +
-  geom_path( aes( x = S, y = I, group = m ), color = 'dodgerblue4' ) + 
+  geom_path( aes( x = S, y = I, group = m ), color = 'dodgerblue4', size = 0.5 ) + 
   geom_abline( intercept = 1, slope = -1, color = 'red4', linetype = 'dashed' ) +
   # geom_point( data = sol[ t == t[n] ], aes( x = S, y = I ), size = 2, col = 'red' ) +
+  geom_point( aes( x = e[1], y = e[2] ), size = 1, col = 'red' ) +
   geom_vline( xintercept = rho, color = 'orange', linetype = 'dashed' ) +
   scale_x_continuous( breaks = x_brk, limits = c( 0, 1 ) ) +
   scale_y_continuous( breaks = y_brk, limits = c( 0, 1 ) ) +

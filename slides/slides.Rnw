@@ -8,16 +8,18 @@
 \usepackage{actuarialangle}
 \usepackage{actuarialsymbol}
 % \usepackage[frenchstyle,nomath]{kpfonts}
-% \usepackage{libertine}
+\usepackage{libertine}
 \usepackage{fourier}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
 
+\spanishdecimal{.}
+
 %---------------------------------------------------------------------------------------------------
 \definecolor{slide_green}{RGB}{146, 208, 80}
-\definecolor{slide_blue}{RGB}{0, 32, 96}
+\definecolor{slide_blue}{RGB}{16, 78, 139}
 \definecolor{slide_bluec}{RGB}{240, 245, 255}
 \definecolor{olivegreen}{cmyk}{0.64, 0, 0.95, 0.40}
 \definecolor{olivegreenc}{cmyk}{0.032, 0, 0.0475, 0.02}
@@ -65,7 +67,7 @@
 
 %---------------------------------------------------------------------------------------------------
 \title{Modelos Epidemiológicos}
-\subtitle{Creación y manejo}
+\subtitle{Análisis, implementación y uso}
 \author{ MSc. Pedro Guarderas\\
         {\small pedro.felipe.guarderas@gmail.com}}
 \date{}
