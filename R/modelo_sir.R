@@ -1,6 +1,9 @@
 library( data.table )
 library( lubridate )
 library( ggplot2 )
+library( knitr )
+library( extrafont )
+loadfonts()
 
 source( 'R/solvers.R', encoding = 'UTF-8', echo = FALSE )
 
@@ -50,7 +53,7 @@ x_brk <- seq( 0, 1, length.out = 11 )
 y_brk <- seq( 0, 1, length.out = 11 )
 
 plt_phase <- ggplot( data = sol ) +
-  geom_line( aes( x = S, y = I, group = m ), color = 'dodgerblue4' ) + 
+  geom_path( aes( x = S, y = I, group = m ), color = 'dodgerblue4' ) + 
   geom_abline( intercept = 1, slope = -1, color = 'red4', linetype = 'dashed' ) +
   geom_vline( xintercept = rho, color = 'orange', linetype = 'dashed' ) +
   scale_x_continuous( breaks = x_brk, limits = c( 0, 1 ) ) +
@@ -62,30 +65,32 @@ plt_phase <- ggplot( data = sol ) +
          panel.grid.minor.y = element_blank() )
 
 plot( plt_phase )
+ggsave( plot = plt_phase, filename = 'slides/graf_phase_sir.pdf', width = 12, height = 12, 
+        dpi = 300, units = 'cm' )
 
 # Modelo SIR con mortalidad y diagramas de fase ----------------------------------------------------
-m <- 10
+m <- 15
 
 I0 <- seq( 0.01, 0.99, length.out = m )
-# I0 <- c( 0.1, 0.2, 0.3 )
 S0 <- 1 - I0
-e <- c( ( beta + mu ) / alpha , 
-        mu * ( alpha - beta - mu ) / ( alpha * ( mu + beta ) ),
-        ( 1 - theta ) * beta * ( alpha - beta - mu ) / ( alpha * ( mu + beta ) ) )
-
-alpha <- 0.52
-beta <- 0.2
-theta <- 0.34
-mu <- 0.0005
-# R0 <- alpha / ( beta + mu )
 R0 <- 0
 
-n <- 5000
-t <- seq( 0, 40, length.out = n )
+alpha <- 0.5
+beta <- 0.15
+eta <- 0.12
+mu <- 0.01
+rho <- ( beta + mu ) / alpha
+
+e <- c( ( beta + mu ) / alpha , 
+        mu * ( alpha - beta - mu ) / ( alpha * ( mu + beta ) ),
+        ( 1 - eta ) * beta * ( alpha - beta - mu ) / ( alpha * ( mu + beta ) ) )
+
+n <- 1000
+t <- seq( 0, 120, length.out = n )
 
 sol <- NULL
 for ( k in 1:length( I0 ) ) {
-  s <- euler_solver_sir_mor( t, alpha, beta, theta, mu, S0[ k ], I0[ k ], R0 )  
+  s <- euler_solver_sir_mor( t, alpha, beta, eta, mu, S0[ k ], I0[ k ], R0 )  
   sol <- rbind( sol, data.table( m = k, t = t, S = s$S, I = s$I, R = s$R ) )
 }
 
@@ -93,10 +98,10 @@ x_brk <- seq( 0, 1, length.out = 11 )
 y_brk <- seq( 0, 1, length.out = 11 )
 
 plt_phase <- ggplot( data = sol ) +
-  geom_line( aes( x = S, y = I, group = m ), color = 'dodgerblue4' ) + 
+  geom_path( aes( x = S, y = I, group = m ), color = 'dodgerblue4' ) + 
   geom_abline( intercept = 1, slope = -1, color = 'red4', linetype = 'dashed' ) +
-  geom_point( data = sol[ t == t[n] ], aes( x = S, y = I ), size = 2, col = 'red' ) +
-  # geom_vline( xintercept = rho, color = 'orange', linetype = 'dashed' ) +
+  # geom_point( data = sol[ t == t[n] ], aes( x = S, y = I ), size = 2, col = 'red' ) +
+  geom_vline( xintercept = rho, color = 'orange', linetype = 'dashed' ) +
   scale_x_continuous( breaks = x_brk, limits = c( 0, 1 ) ) +
   scale_y_continuous( breaks = y_brk, limits = c( 0, 1 ) ) +
   xlab( 'S' ) +
@@ -106,6 +111,8 @@ plt_phase <- ggplot( data = sol ) +
          panel.grid.minor.y = element_blank() )
 
 plot( plt_phase )
+ggsave( plot = plt_phase, filename = 'slides/graf_phase_sir_mor.pdf', width = 12, height = 12, 
+        dpi = 300, units = 'cm' )
 
 plt_solv <- ggplot( data = sol ) +
   geom_line( aes( x = t, y = S, group = m ), color = 'dodgerblue4' ) + 
