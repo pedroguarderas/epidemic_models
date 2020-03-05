@@ -37,34 +37,34 @@ euler_solver_sir_mor <- function( t, alpha, beta, eta, mu, S0, I0, R0 ) {
     Si <- S[i]
     Ii <- I[i]
     Ri <- R[i]
-    Sk1 <- dt * ( mu * ( 1 - Si ) - alpha * Si * Ii + eta * beta * Ii )
-    Ik1 <- dt * ( alpha * Si * Ii - ( beta + mu ) * Ii )
-    Rk1 <- dt * ( ( 1 - eta ) * beta * Ii - mu * Ri )
+    Sk1 <- mu * ( 1 - Si ) - alpha * Si * Ii + eta * beta * Ii
+    Ik1 <- alpha * Si * Ii - ( beta + mu ) * Ii
+    Rk1 <- ( 1 - eta ) * beta * Ii - mu * Ri
     
-    Si <- S[i] + 0.5 * Sk1
-    Ii <- I[i] + 0.5 * Ik1
-    Ri <- R[i] + 0.5 * Rk1
-    Sk2 <- dt * ( mu * ( 1 - Si ) - alpha * Si * Ii + eta * beta * Ii )
-    Ik2 <- dt * ( alpha * Si * Ii - ( beta + mu ) * Ii )
-    Rk2 <- dt * ( ( 1 - eta ) * beta * Ii - mu * Ri )
+    Si <- S[i] + 0.5 * dt * Sk1
+    Ii <- I[i] + 0.5 * dt * Ik1
+    Ri <- R[i] + 0.5 * dt * Rk1
+    Sk2 <- mu * ( 1 - Si ) - alpha * Si * Ii + eta * beta * Ii
+    Ik2 <- alpha * Si * Ii - ( beta + mu ) * Ii 
+    Rk2 <- ( 1 - eta ) * beta * Ii - mu * Ri
     
-    Si <- S[i] + 0.5 * Sk2
-    Ii <- I[i] + 0.5 * Ik2
-    Ri <- R[i] + 0.5 * Rk2
-    Sk3 <- dt * ( mu * ( 1 - Si ) - alpha * Si * Ii + eta * beta * Ii )
-    Ik3 <- dt * ( alpha * Si * Ii - ( beta + mu ) * Ii )
-    Rk3 <- dt * ( ( 1 - eta ) * beta * Ii - mu * Ri )
+    Si <- S[i] + 0.5 * dt * Sk2
+    Ii <- I[i] + 0.5 * dt * Ik2
+    Ri <- R[i] + 0.5 * dt * Rk2
+    Sk3 <- mu * ( 1 - Si ) - alpha * Si * Ii + eta * beta * Ii
+    Ik3 <- alpha * Si * Ii - ( beta + mu ) * Ii
+    Rk3 <- ( 1 - eta ) * beta * Ii - mu * Ri
     
-    Si <- S[i] + Sk3
-    Ii <- I[i] + Ik3
-    Ri <- R[i] + Rk3
-    Sk4 <- dt * ( mu * ( 1 - Si ) - alpha * Si * Ii + eta * beta * Ii )
-    Ik4 <- dt * ( alpha * Si * Ii - ( beta + mu ) * Ii )
-    Rk4 <- dt * ( ( 1 - eta ) * beta * Ii - mu * Ri )
+    Si <- S[i] + dt * Sk3
+    Ii <- I[i] + dt * Ik3
+    Ri <- R[i] + dt * Rk3
+    Sk4 <- mu * ( 1 - Si ) - alpha * Si * Ii + eta * beta * Ii
+    Ik4 <- alpha * Si * Ii - ( beta + mu ) * Ii
+    Rk4 <- ( 1 - eta ) * beta * Ii - mu * Ri
     
-    S[ i + 1 ] = S[ i ] + ( 1 / 6 ) * ( Sk1 + 2 * Sk2 + 2 * Sk3 + Sk4 )
-    I[ i + 1 ] = I[ i ] + ( 1 / 6 ) * ( Ik1 + 2 * Ik2 + 2 * Ik3 + Ik4 )
-    R[ i + 1 ] = R[ i ] + ( 1 / 6 ) * ( Rk1 + 2 * Rk2 + 2 * Rk3 + Rk4 )
+    S[ i + 1 ] = S[ i ] + ( 1 / 6 ) * dt * ( Sk1 + 2 * Sk2 + 2 * Sk3 + Sk4 )
+    I[ i + 1 ] = I[ i ] + ( 1 / 6 ) * dt * ( Ik1 + 2 * Ik2 + 2 * Ik3 + Ik4 )
+    R[ i + 1 ] = R[ i ] + ( 1 / 6 ) * dt * ( Rk1 + 2 * Rk2 + 2 * Rk3 + Rk4 )
     
   } 
   
