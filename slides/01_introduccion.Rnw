@@ -2,9 +2,9 @@
 \section{Epidemiología}
 \begin{frame}[fragile]
 \frametitle{Epidemiología}
-Una \emph{epidemia} es una enfermedad que ataca a un gran número de personas o de animales en un 
-mismo lugar durante un período de tiempo. Cuando la enfermedad supera las barreras de varios
-países se habla de un \emph{pandemia}. 
+Una \emph{epidemia} es una enfermedad que ataca a un gran número de seres vivos en mismo lugar 
+durante un período de tiempo. Cuando la enfermedad supera las barreras de varios países se habla 
+de un \emph{pandemia}. 
 \newline
 
 La \emph{epidemiología teórica} se encarga de generar modelos matemáticos para representar la 
@@ -18,9 +18,9 @@ dinámico y por tanto la evolución de la enfermedad.
 \end{frame}
 
 %---------------------------------------------------------------------------------------------------
-\section{Modelización}
+\section{Creación de modelos matemáticos}
 \begin{frame}[fragile]
-\frametitle{Modelización}
+\frametitle{Creación de modelos matemáticos}
 La creación de un modelo matemático exige tener en cuenta los siguientes pasos.
 \begin{enumerate}
 \item Conceptualización
@@ -166,13 +166,83 @@ El método numérico implementado es el esquema de cuarto orden de Runge-Kutta.
 \end{figure}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Modelos SIR incluyendo mortalidad ejemplo}
+\begin{figure}
+\centering
+\includegraphics[scale=0.65]{graf_solv_sir_mor}
+\end{figure}
+\end{frame}
+
 %---------------------------------------------------------------------------------------------------
 \subsection{Modelos SIR estimación}
 \begin{frame}[fragile]
 \frametitle{Modelo SIR estimación}
 Los parámetros $\alpha, \beta, \eta, \mu$ que componen el modelo SIR no son conocidos a priori y 
-deben ser estimados a partir de la información disponible de la población.
+deben ser estimados a partir de la información disponible de la población. Para su determinación se 
+puede tomar dos estrategias.
+\begin{enumerate}
+\item Cuando la naturaleza de los parámetros lo permita, es decir valore susceptibles de una 
+interpretación que son medibles de forma directa. Se puede utilizar los estadísticos de medida 
+central clásicos.
+
+\item Si en caso los parámetros poseen una naturaleza más intrincada y no pueden ser interpretados 
+con facilidad, se puede optar por el uso de una medida de calidad de ajuste que dependa de los 
+parámetros a ser estimados. Lo que se intenta es mejorar la medida de ajuste, por ejemplo es usual
+utilizar métodos tipo mínimos cuadrados.
+\end{enumerate}
+
+\begin{equation}
+\underset{\alpha, \beta, \eta, \mu}{\minim} J( \alpha, \beta, \eta, \mu, S_{obs}, I_{obs}, R_{obs} )
+\end{equation}
 \end{frame}
+
+%---------------------------------------------------------------------------------------------------
+\section{Modelo SIR aplicado a COVID-19}
+\begin{frame}[fragile]
+\frametitle{Modelo SIR aplicado a COVID-19}
+Ejemplo aplicado a COVID-19. A partir de la información disponible en:
+\url{https://github.com/CSSEGISandData/COVID-19}
+\newline
+
+Los siguientes ejemplos son especulativos y dependen mucho del tamaño de la población susceptible 
+inicial $S_0$.
+\newline
+
+La estimación de los parámetros debe ser verificada y validada.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modelo SIR aplicado a COVID-19}
+Ejemplo aplicado a COVID-19. Tomando $S_0 = 1 - I_0, I_0 = \frac{7}{300}, R_0 = 0$, 
+$\beta = 0.3343826, \eta = 0.02190899, \mu = 0.0001$ y $\alpha$ estimado indirectamente a partir de 
+un número básico de reproducción publicado para COVID-19, tomando un número básico de reproducción
+medio $\mathcal{R}_0 = 6$.
+\begin{equation}
+\alpha = ( \beta + \mu ) \mathcal{R}_0
+\end{equation}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.45]{graf_sol_covid_1.pdf}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modelo SIR aplicado a COVID-19}
+Ejemplo aplicado a COVID-19. Tomando $S_0 = 1 - I_0, I_0 = \frac{7}{150}, R_0 = 0$, 
+$\beta = 0.3343826, \eta = 0.02190899, \mu = 0.0001$ y $\alpha$ estimado indirectamente como antes.
+Asumimos en este caso un $\mathcal{R}_0 = 2.3$.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{graf_sol_covid_2.pdf}
+\end{figure}
+
+\end{frame}
+
 
 %---------------------------------------------------------------------------------------------------
 \subsection{Observaciones}
@@ -194,4 +264,19 @@ decisiones de salud pública adecuadas y oportunas.
 Las epidemias tienden a desarrollarse más rápido si la densidad de susceptibles es alta, por 
 ejemplo, sobrepoblación, y si la tasa de retiro, $\beta$, es baja, por ejemplo, tratamiento médico 
 insuficiente.
+\end{frame}
+
+%---------------------------------------------------------------------------------------------------
+\section{Extensiones}
+\begin{frame}[fragile]
+\frametitle{Extensiones}
+Los modelos que Kermack y McKendrick son en realidad la simplificación de modelos más complejos 
+asociados a \emph{leyes de conservación}, que pueden depender de la edad y la ubicación espacial
+de los individuos.
+\newline
+
+En aquella epoca se construía estas simplificaciones para poder realizar aproximaciones numéricas, 
+hoy en día la situación es diferente, se dispone de poder computacional y las bases de información 
+que almacenan gran cantidad de datos posiblemente útiles para realizar algunas estimaciones con 
+buena precisión.
 \end{frame}

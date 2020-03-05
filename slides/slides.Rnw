@@ -14,8 +14,11 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{mathtools}
 
 \spanishdecimal{.}
+
+\DeclareMathOperator*{\minim}{min}
 
 %---------------------------------------------------------------------------------------------------
 \definecolor{slide_green}{RGB}{146, 208, 80}
