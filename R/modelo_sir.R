@@ -1,10 +1,3 @@
-library( data.table )
-library( lubridate )
-library( ggplot2 )
-library( knitr )
-library( extrafont )
-loadfonts()
-
 source( 'R/solvers.R', encoding = 'UTF-8', echo = FALSE )
 
 # I <- I0 + S0 - S + rho * log( S / S0 )
@@ -27,7 +20,6 @@ plt_solv <- ggplot() +
   geom_line( aes( x = t, y = sol$R ), color = 'darkgreen' ) +
   scale_y_continuous( limits = c( 0, 1 ) ) +
   theme_bw()
-plot( plt_solv )
 
 # Modelo SIR sin mortalidad y diagramas de fase ----------------------------------------------------
 m <- 11
@@ -64,7 +56,6 @@ plt_phase <- ggplot( data = sol ) +
   theme( panel.grid.minor.x = element_blank(),
          panel.grid.minor.y = element_blank() )
 
-plot( plt_phase )
 ggsave( plot = plt_phase, filename = 'slides/graf_phase_sir.pdf', width = 12, height = 12, 
         dpi = 300, units = 'cm' )
 
@@ -79,6 +70,12 @@ alpha <- 0.5
 beta <- 0.15
 eta <- 0.12
 mu <- 0.01
+
+# alpha <- 0.8
+# beta <- 0.32
+# eta <- 0.022
+# mu <- 0.001
+
 rho <- ( beta + mu ) / alpha
 
 e <- c( ( beta + mu ) / alpha , 
@@ -115,19 +112,24 @@ plot( plt_phase )
 ggsave( plot = plt_phase, filename = 'slides/graf_phase_sir_mor.pdf', width = 12, height = 12, 
         dpi = 300, units = 'cm' )
 
+x_brk <- seq( 0, max( t ), length.out = 11 )
+y_brk <- seq( 0, 1, length.out = 11 )
+
 plt_solv <- ggplot( data = sol ) +
-  geom_line( aes( x = t, y = S, group = m ), color = 'dodgerblue4' ) + 
-  geom_line( aes( x = t, y = I, group = m ), color = 'orange' ) + 
-  geom_line( aes( x = t, y = R, group = m ), color = 'purple' ) + 
-  scale_x_continuous( breaks = x_brk, limits = c( 0, 1 ) ) +
+  geom_path( aes( x = t, y = S, group = m ), color = 'dodgerblue4' ) + 
+  geom_line( aes( x = t, y = I, group = m ), color = 'red4' ) +
+  geom_line( aes( x = t, y = R, group = m ), color = 'orange' ) +
+  scale_x_continuous( breaks = x_brk, limits = c( 0, max( t ) ) ) +
   scale_y_continuous( breaks = y_brk, limits = c( 0, 1 ) ) +
   xlab( 't' ) +
-  ylab( 'S' ) +
+  ylab( 'S, I, R' ) +
   theme_bw() +
-  theme( panel.grid.minor.x = element_blank(),
+  theme( legend.position = 'right', 
+         panel.grid.minor.x = element_blank(),
          panel.grid.minor.y = element_blank() )
 
-plot( plt_solv )
+ggsave( plot = plt_solv, filename = 'slides/graf_solv_sir_mor.pdf', width = 12, height = 12,
+        dpi = 300, units = 'cm' )
 
 rm( list = ls() )
 gc()
