@@ -29,6 +29,9 @@ plt_solv <- ggplot() +
   scale_y_continuous( breaks = ybrk, limits = range( ybrk ) ) +
   xlab( 'days' ) +
   ylab( 'S,E,I,R' ) +
-  theme_bw()
+  theme_bw() +
+  theme( legend.position = 'none',
+         panel.grid.minor.x = element_blank(),
+         panel.grid.minor.y = element_blank() )
 
 plot( plt_solv )
