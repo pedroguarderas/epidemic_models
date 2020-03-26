@@ -2,7 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-*.RData
 *.tar.gz
 *.tar
 *.zip
@@ -26,3 +25,4 @@
 *.bbl
 *.blg
 *.run.xml
+
