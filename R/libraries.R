@@ -1,6 +1,7 @@
-library( data.table )
-library( lubridate )
-library( ggplot2 )
-library( knitr )
-library( extrafont )
+suppressPackageStartupMessages( library( data.table ) )
+suppressPackageStartupMessages( library( lubridate ) )
+suppressPackageStartupMessages( library( ggplot2 ) )
+suppressPackageStartupMessages( library( knitr ) )
+suppressPackageStartupMessages( library( extrafont ) )
+
 loadfonts()
