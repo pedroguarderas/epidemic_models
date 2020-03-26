@@ -3,11 +3,11 @@ message( paste0( rep( '-', 100 ), collapse = '' ) )
 message( '\tLoad COVID-19 info' )
 fold <- '/home/aju/Development/COVID-19/csse_covid_19_data/csse_covid_19_time_series/'
 
-conf <- read.csv( file = paste0( fold, 'time_series_19-covid-Confirmed.csv' ) )
+conf <- read.csv( file = paste0( fold, 'time_series_covid19_confirmed_global.csv' ) )
 conf <- as.data.table( conf )
-dead <- read.csv( file = paste0( fold, 'time_series_19-covid-Deaths.csv' ) )
+dead <- read.csv( file = paste0( fold, 'time_series_covid19_deaths_global.csv' ) )
 dead <- as.data.table( dead )
-reco <- read.csv( file = paste0( fold, 'time_series_19-covid-Recovered.csv' ) )
+reco <- read.csv( file = paste0( fold, 'time_series_covid19_recovered_global.csv' ) )
 reco <- as.data.table( reco )
 
 setnames( conf, tolower( names( conf ) ) )
