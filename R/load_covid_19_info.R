@@ -31,8 +31,9 @@ reco <- melt.data.table( data = reco, variable.name = 'date', value.name = 'r',
 reco[ , date := gsub( 'x', '', date ) ]
 reco[ , date := mdy( date ) ]
 
-save( conf, dead, reco, file = 'RData/covid_19_information.RData' )
+save( conf, dead, reco, 
+      file = paste0( par$RData, 'covid_19_information.RData' ) )
 
 message( paste0( rep( '-', 100 ), collapse = '' ) )
-rm( list = ls() )
+rm( list = ls()[ !( ls() %in% c( 'par' ) ) ] )
 gc()

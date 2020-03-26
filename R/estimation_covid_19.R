@@ -1,6 +1,6 @@
 message( paste0( rep( '-', 100 ), collapse = '' ) )
 message( '\tEstimation COVID-19 info' )
-load( 'RData/covid_19_information.RData' )
+load( paste0( par$RData, 'covid_19_information.RData' ) )
 
 covid <- merge( conf, dead, 
                 by = c( 'province_state', 'country_region', 'lat', 'long', 'date' ), 
@@ -23,8 +23,9 @@ covid_geo <- covid[ , list( i = sum( i, na.rm = TRUE ),
                             r = sum( r, na.rm = TRUE ) ), 
                     by = list( lat, long ) ]
 
-save( covid, covid_ts, covid_geo, reco, file = 'RData/covid_19_estimation.RData' )
+save( covid, covid_ts, covid_geo, reco, 
+      file = paste0( par$RData, 'covid_19_estimation.RData' ) )
 
 message( paste0( rep( '-', 100 ), collapse = '' ) )
-rm( list = ls() )
+rm( list = ls()[ !( ls() %in% c( 'par' ) ) ] )
 gc()

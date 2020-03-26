@@ -1,6 +1,7 @@
 message( paste0( rep( '-', 100 ), collapse = '' ) )
+message( '\tSIR models for Ecuador' )
 
-load( 'RData/covid_19_estimation.RData' )
+load( paste0( par$RData, 'covid_19_estimation.RData' ) )
 source( 'R/solvers.R', encoding = 'UTF-8', echo = FALSE )
 
 covid_ecu <- covid[ country_region == 'Ecuador' ]
@@ -17,7 +18,7 @@ mu <- 0.0001
 
 # rho <- ( beta + mu ) / alpha
 
-rho <- 1 / 6
+rho <- 1 / 2.5
 alpha <- ( beta + mu ) / rho
 
 e <- c( ( beta + mu ) / alpha , 
@@ -71,8 +72,9 @@ plt_solv <- ggplot( data = sol ) +
          panel.grid.minor.x = element_blank(),
          panel.grid.minor.y = element_blank() )
 
-ggsave( plot = plt_solv, filename = 'slides/graf_sol_covid_1.pdf', width = 12, height = 12,
-        dpi = 300, units = 'cm' )
+ggsave( plot = plt_solv, 
+        filename = paste0(  par$results, 'graf_model_ecu_covid_19_n1.pdf' ), 
+        width = 12, height = 12, dpi = 300, units = 'cm' )
 
 # Modelo SIR 2 -------------------------------------------------------------------------------------
 N <- 15000
@@ -140,8 +142,10 @@ plt_solv <- ggplot( data = sol ) +
          panel.grid.minor.x = element_blank(),
          panel.grid.minor.y = element_blank() )
 
-ggsave( plot = plt_solv, filename = 'slides/graf_sol_covid_2.pdf', width = 12, height = 12,
-        dpi = 300, units = 'cm' )
+ggsave( plot = plt_solv, 
+        filename = paste0(  par$results, 'graf_model_ecu_covid_19_n2.pdf' ), 
+        width = 12, height = 12, dpi = 300, units = 'cm' )
 
-rm( list = ls() )
+message( paste0( rep( '-', 100 ), collapse = '' ) )
+rm( list = ls()[ !( ls() %in% c( 'par' ) ) ] )
 gc()
