@@ -1,6 +1,5 @@
 source( 'R/solvers.R', encoding = 'UTF-8', echo = FALSE )
 
-# I <- I0 + S0 - S + rho * log( S / S0 )
 # Modelo SIR ---------------------------------------------------------------------------------------
 S0 <- 0.8
 I0 <- 0.2
@@ -56,7 +55,9 @@ plt_phase <- ggplot( data = sol ) +
   theme( panel.grid.minor.x = element_blank(),
          panel.grid.minor.y = element_blank() )
 
-ggsave( plot = plt_phase, filename = 'slides/graf_phase_sir.pdf', width = 12, height = 12, 
+ggsave( plot = plt_phase, 
+        filename = paste0(  par$results, 'graf_model_phase_sir.pdf' ),
+        width = 12, height = 12, 
         dpi = 300, units = 'cm' )
 
 # Modelo SIR con mortalidad y diagramas de fase ----------------------------------------------------
@@ -109,8 +110,9 @@ plt_phase <- ggplot( data = sol ) +
          panel.grid.minor.y = element_blank() )
 
 plot( plt_phase )
-ggsave( plot = plt_phase, filename = 'slides/graf_phase_sir_mor.pdf', width = 12, height = 12, 
-        dpi = 300, units = 'cm' )
+ggsave( plot = plt_phase, 
+        filename = paste0(  par$results, 'graf_phase_sir_mor.pdf' ),
+        width = 12, height = 12, dpi = 300, units = 'cm' )
 
 x_brk <- seq( 0, max( t ), length.out = 11 )
 y_brk <- seq( 0, 1, length.out = 11 )
@@ -128,8 +130,9 @@ plt_solv <- ggplot( data = sol ) +
          panel.grid.minor.x = element_blank(),
          panel.grid.minor.y = element_blank() )
 
-ggsave( plot = plt_solv, filename = 'slides/graf_solv_sir_mor.pdf', width = 12, height = 12,
-        dpi = 300, units = 'cm' )
+ggsave( plot = plt_solv, 
+        filename = paste0(  par$results, 'graf_solu_sir_mor.pdf' ),
+        width = 12, height = 12, dpi = 300, units = 'cm' )
 
-rm( list = ls() )
+rm( list = ls()[ !( ls() %in% c( 'par' ) ) ] )
 gc()
