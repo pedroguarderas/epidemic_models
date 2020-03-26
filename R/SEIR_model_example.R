@@ -27,6 +27,8 @@ plt_solv <- ggplot() +
   geom_line( aes( x = t, y = sol$R ), color = 'darkgreen' ) +
   scale_x_continuous( breaks = xbrk, limits = range( xbrk ) ) +
   scale_y_continuous( breaks = ybrk, limits = range( ybrk ) ) +
+  xlab( 'days' ) +
+  ylab( 'S,E,I,R' ) +
   theme_bw()
 
 plot( plt_solv )
