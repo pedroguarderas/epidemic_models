@@ -72,7 +72,7 @@ euler_solver_sir_mor <- function( t, alpha, beta, eta, mu, S0, I0, R0 ) {
 
 # Solver for SEIR model considering death ----------------------------------------------------------s
 # The solver is implemented with the 4th order Runge-Kutta method
-euler_solver_seir_mor <- function( t, alpha, beta, sigma, mu, S0, E0, I0, R0 ) {
+euler_solver_seir <- function( t, alpha, beta, sigma, mu, S0, E0, I0, R0 ) {
   n <- length( t )
   
   S <- array( S0, dim = n )
