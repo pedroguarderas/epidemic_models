@@ -72,7 +72,7 @@ euler_solver_sir_mor <- function( t, alpha, beta, eta, mu, S0, I0, R0 ) {
 
 # Solver for SEIR model considering death ----------------------------------------------------------s
 # The solver is implemented with the 4th order Runge-Kutta method
-euler_solver_seir <- function( t, alpha, beta, sigma, mu, S0, E0, I0, R0 ) {
+euler_solver_seir <- function( t, alpha, beta, sigma, mu, nu, S0, E0, I0, R0 ) {
   n <- length( t )
   
   S <- array( S0, dim = n )
@@ -87,37 +87,37 @@ euler_solver_seir <- function( t, alpha, beta, sigma, mu, S0, E0, I0, R0 ) {
     Ei <- S[i]
     Ii <- I[i]
     Ri <- R[i]
-    Sk1 <- mu * ( 1 - Si ) - alpha * Si * Ii
+    Sk1 <- mu * ( 1 - Si ) - alpha * Si * Ii - nu * Si
     Ek1 <- alpha * Si * Ii - ( mu + sigma ) * Ei
     Ik1 <- sigma * Ei - ( beta + mu ) * Ii
-    Rk1 <- beta * Ii - mu * Ri
+    Rk1 <- beta * Ii - mu * Ri + nu * Si
     
     Si <- S[i] + 0.5 * dt * Sk1
     Ei <- E[i] + 0.5 * dt * Ek1
     Ii <- I[i] + 0.5 * dt * Ik1
     Ri <- R[i] + 0.5 * dt * Rk1
-    Sk2 <- mu * ( 1 - Si ) - alpha * Si * Ii
+    Sk2 <- mu * ( 1 - Si ) - alpha * Si * Ii - nu * Si
     Ek2 <- alpha * Si * Ii - ( mu + sigma ) * Ei
     Ik2 <- sigma * Ei - ( beta + mu ) * Ii
-    Rk2 <- beta * Ii - mu * Ri
+    Rk2 <- beta * Ii - mu * Ri + nu * Si
     
     Si <- S[i] + 0.5 * dt * Sk2
     Ei <- E[i] + 0.5 * dt * Ek2
     Ii <- I[i] + 0.5 * dt * Ik2
     Ri <- R[i] + 0.5 * dt * Rk2
-    Sk3 <- mu * ( 1 - Si ) - alpha * Si * Ii
+    Sk3 <- mu * ( 1 - Si ) - alpha * Si * Ii - nu * Si
     Ek3 <- alpha * Si * Ii - ( mu + sigma ) * Ei
     Ik3 <- sigma * Ei - ( beta + mu ) * Ii
-    Rk3 <- beta * Ii - mu * Ri
+    Rk3 <- beta * Ii - mu * Ri + nu * Si
     
     Si <- S[i] + dt * Sk3
     Ei <- E[i] + dt * Ek3
     Ii <- I[i] + dt * Ik3
     Ri <- R[i] + dt * Rk3
-    Sk4 <- mu * ( 1 - Si ) - alpha * Si * Ii
+    Sk4 <- mu * ( 1 - Si ) - alpha * Si * Ii - nu * Si
     Ek4 <- alpha * Si * Ii - ( mu + sigma ) * Ei
     Ik4 <- sigma * Ei - ( beta + mu ) * Ii
-    Rk4 <- beta * Ii - mu * Ri
+    Rk4 <- beta * Ii - mu * Ri + nu * Si
     
     S[ i + 1 ] = S[ i ] + ( 1 / 6 ) * dt * ( Sk1 + 2 * Sk2 + 2 * Sk3 + Sk4 )
     E[ i + 1 ] = E[ i ] + ( 1 / 6 ) * dt * ( Ek1 + 2 * Ek2 + 2 * Ek3 + Ek4 )
