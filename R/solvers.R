@@ -76,7 +76,7 @@ euler_solver_seir_mor <- function( t, alpha, beta, eta, sigma, mu, S0, E0, I0, R
   n <- length( t )
   
   S <- array( S0, dim = n )
-  E <- array( I0, dim = n )
+  E <- array( E0, dim = n )
   I <- array( I0, dim = n )
   R <- array( R0, dim = n )
   
