@@ -1,5 +1,6 @@
 message( paste0( rep( '-', 100 ), collapse = '' ) )
 message( '\tEstimation COVID-19 info' )
+load( 'RData/covid_19_information.RData' )
 
 covid <- merge( conf, dead, 
                 by = c( 'province_state', 'country_region', 'lat', 'long', 'date' ), 

@@ -3,11 +3,6 @@ message( paste0( rep( '-', 100 ), collapse = '' ) )
 message( '\tLoad COVID-19 info' )
 fold <- '/home/aju/Development/COVID-19/csse_covid_19_data/csse_covid_19_time_series/'
 
-# Creando carpeta para guardar los resultados
-if ( !dir.exists( 'RData' ) ) {
-  dir.create( 'RData' )
-}
-
 conf <- read.csv( file = paste0( fold, 'time_series_19-covid-Confirmed.csv' ) )
 conf <- as.data.table( conf )
 dead <- read.csv( file = paste0( fold, 'time_series_19-covid-Deaths.csv' ) )
