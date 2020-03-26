@@ -1,7 +1,7 @@
 # COVID-19 -----------------------------------------------------------------------------------------
 message( paste0( rep( '-', 100 ), collapse = '' ) )
 message( '\tLoad COVID-19 info' )
-fold <- '/home/aju/Development/COVID-19/csse_covid_19_data/csse_covid_19_time_series/'
+fold <- par$src_info
 
 conf <- read.csv( file = paste0( fold, 'time_series_covid19_confirmed_global.csv' ) )
 conf <- as.data.table( conf )

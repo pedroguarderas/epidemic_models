@@ -7,6 +7,8 @@ par <- new.env()
 par$results <- 'results/'
 par$RData <- 'RData/'
 
+par$src_info <- '/home/aju/Development/COVID-19/csse_covid_19_data/csse_covid_19_time_series/'
+
 # Folder for RData's
 if ( !dir.exists( par$RData ) ) {
   dir.create( par$RData )
