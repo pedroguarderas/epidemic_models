@@ -1,5 +1,5 @@
-# Solver empleando el esque de Euler para el modelo SIR --------------------------------------------
-# No se considera muerte por causas naturales o enfermedad
+# Solver for the SIR model -------------------------------------------------------------------------
+# Death is not considered in the model
 euler_solver_sir <- function( t, alpha, beta, S0, I0, R0 ) {
   n <- length( t )
   
@@ -21,9 +21,8 @@ euler_solver_sir <- function( t, alpha, beta, S0, I0, R0 ) {
   return( list( 'S' = S, 'I' = I, 'R' = R ) )
 }
 
-# Solver empleando el esque de Euler para el modelo SIR con muerte ---------------------------------
-# Se considera muerte por enfermedad y causas naturales
-# Implementado con solver de orden cuarto de Runge-Kutta
+# Solver for SIR model considering death -----------------------------------------------------------
+# The solver is implemented with the 4th order Runge-Kutta method
 euler_solver_sir_mor <- function( t, alpha, beta, eta, mu, S0, I0, R0 ) {
   n <- length( t )
   
