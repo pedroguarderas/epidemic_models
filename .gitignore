@@ -25,4 +25,5 @@
 *.bbl
 *.blg
 *.run.xml
-
+slides_only/*
+research/*
