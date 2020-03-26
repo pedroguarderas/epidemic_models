@@ -1,63 +1,16 @@
-# COVID-19 -----------------------------------------------------------------------------------------
-fold <- '/home/aju/Development/COVID-19/csse_covid_19_data/csse_covid_19_time_series/'
-conf <- read.csv( file = paste0( fold, 'time_series_19-covid-Confirmed.csv' ) )
-conf <- as.data.table( conf )
-dead <- read.csv( file = paste0( fold, 'time_series_19-covid-Deaths.csv' ) )
-dead <- as.data.table( dead )
-reco <- read.csv( file = paste0( fold, 'time_series_19-covid-Recovered.csv' ) )
-reco <- as.data.table( reco )
+message( paste0( rep( '-', 100 ), collapse = '' ) )
 
-setnames( conf, tolower( names( conf ) ) )
-conf <- melt.data.table( data = conf, variable.name = 'date', value.name = 'i',
-                         id.vars = c( 'province.state', 'country.region', 'lat', 'long' ) )
-conf[ , date := gsub( 'x', '', date ) ]
-conf[ , date := mdy( date ) ]
-
-setnames( dead, tolower( names( dead ) ) )
-dead <- melt.data.table( data = dead, variable.name = 'date', value.name = 'd',
-                         id.vars = c( 'province.state', 'country.region', 'lat', 'long' ) )
-dead[ , date := gsub( 'x', '', date ) ]
-dead[ , date := mdy( date ) ]
-
-setnames( reco, tolower( names( reco ) ) )
-reco <- melt.data.table( data = reco, variable.name = 'date', value.name = 'r',
-                         id.vars = c( 'province.state', 'country.region', 'lat', 'long' ) )
-reco[ , date := gsub( 'x', '', date ) ]
-reco[ , date := mdy( date ) ]
-
-covid <- merge( conf, dead, 
-                by = c( 'province.state', 'country.region', 'lat', 'long', 'date' ), 
-                all.x = TRUE )
-
-covid <- merge( covid, reco, 
-                by = c( 'province.state', 'country.region', 'lat', 'long', 'date' ), 
-                all.x = TRUE )
-
-covid_ts <- covid[ , list( i = sum( i ), d = sum( d ), r = sum( r ) ), by = list( date ) ]
-setorder( covid_ts, date )
-covid_ts[ , beta := r / ( i + d + r ) ]
-covid_ts[ , eta := d / ( i + d + r ) ]
-
-# plot( covid_ts$date, covid_ts$beta, type = 'l', col = 'purple' )
-# plot( covid_ts$date, covid_ts$eta, type = 'l', col = 'purple' )
-# 
-# plot( covid_ts$date, covid_ts$i, type = 'l', col = 'orange' )
-# points( covid_ts$date, covid_ts$d, type = 'l', col = 'gold' )
-# points( covid_ts$date, covid_ts$r, type = 'l', col = 'darkgreen' )
-
-covid_geo <- covid[ , list( i = sum( i ), d = sum( d ), r = sum( r ) ), by = list( lat, long ) ]
-# plot( covid_geo$lat, covid_geo$long )
-# points( covid[ country.region == 'Ecuador' ]$lat, covid[ country.region == 'Ecuador' ]$long, col = 'red' )
-
-# Modelo SIR 1 -------------------------------------------------------------------------------------
+load( 'RData/covid_19_estimation.RData' )
 source( 'R/solvers.R', encoding = 'UTF-8', echo = FALSE )
 
-N <- 300
-I0 <- 10 / N
+covid_ecu <- covid[ country_region == 'Ecuador' ]
+
+# Modelo SIR 1 -------------------------------------------------------------------------------------
+N <- 5000
+I0 <- covid_ecu[ date == max( date ) ]$i / N
 S0 <- 1 - I0
 R0 <- 0
 
-# alpha <- 0.75
 beta <- covid_ts[ date == max( date ) ]$beta
 eta <- covid_ts[ date == max( date ) ]$eta
 mu <- 0.0001
@@ -114,7 +67,7 @@ plt_solv <- ggplot( data = sol ) +
   #                       breaks = c( 'S', 'I', 'R' ),
   #                       labels = c( 'S', 'I', 'R' ) ) +
   theme_bw() +
-  theme( legend.position = 'right', 
+  theme( legend.position = 'bottom', 
          panel.grid.minor.x = element_blank(),
          panel.grid.minor.y = element_blank() )
 
@@ -122,8 +75,8 @@ ggsave( plot = plt_solv, filename = 'slides/graf_sol_covid_1.pdf', width = 12, h
         dpi = 300, units = 'cm' )
 
 # Modelo SIR 2 -------------------------------------------------------------------------------------
-N <- 150
-I0 <- 10 / N
+N <- 15000
+I0 <- covid_ecu[ date == max( date ) ]$i / N
 S0 <- 1 - I0
 R0 <- 0
 
