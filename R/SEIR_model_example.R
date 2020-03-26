@@ -17,12 +17,16 @@ t <- seq( 0, 60, length.out = n )
 
 sol <- euler_solver_seir( t, alpha, beta, sigma, mu, nu, S0, E0, I0, R0 )
 
+xbrk <- seq( min( t ), max( t ), length.out = 11 )
+ybrk <- seq( 0, 1, length.out = 11 )
+
 plt_solv <- ggplot() +
   geom_line( aes( x = t, y = sol$S ), color = 'purple' ) + 
   geom_line( aes( x = t, y = sol$E ), color = 'dodgerblue3' ) + 
   geom_line( aes( x = t, y = sol$I ), color = 'orange' ) +
   geom_line( aes( x = t, y = sol$R ), color = 'darkgreen' ) +
-  scale_y_continuous( limits = c( 0, 1 ) ) +
+  scale_x_continuous( breaks = xbrk, limits = range( xbrk ) ) +
+  scale_y_continuous( breaks = ybrk, limits = range( ybrk ) ) +
   theme_bw()
 
 plot( plt_solv )
