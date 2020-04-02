@@ -7,6 +7,7 @@ camas_2017 <- read.csv( file = paste0( par$data, 'MSP_camas_hospitales/camas_201
                         header = TRUE, sep = ';', fileEncoding = 'Latin1' )
 
 camas_2017 <- as.data.table( camas_2017 )
+camas_2017[ , y := 2017 ]
 
 camas_ecu <- copy( camas_2017 )
 
