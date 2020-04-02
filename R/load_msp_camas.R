@@ -25,6 +25,7 @@ ras_2017[ , y := 2017 ]
 
 # Guardando resultados -----------------------------------------------------------------------------
 save( camas_2016, camas_2017, file = paste0( par$RData, 'inec_camas_hosp_ecu.RData' ) )
+save( ras_2017, file = paste0( par$RData, 'inec_recu_salud_ecu.RData' ) )
 
 message( paste0( rep( '-', 100 ), collapse = '' ) )
 rm( list = ls()[ !( ls() %in% c( 'par' ) ) ] )
