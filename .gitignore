@@ -25,5 +25,7 @@
 *.bbl
 *.blg
 *.run.xml
-slides_only/*
+slides/*
 research/*
+data/*
+
