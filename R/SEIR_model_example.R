@@ -35,3 +35,8 @@ plt_solv <- ggplot() +
          panel.grid.minor.y = element_blank() )
 
 plot( plt_solv )
+
+ggsave( plot = plt_solv, 
+        filename = paste0(  par$results, 'graf_solu_seir_mor.pdf' ),
+        width = 12, height = 12, 
+        dpi = 300, units = 'cm' )
