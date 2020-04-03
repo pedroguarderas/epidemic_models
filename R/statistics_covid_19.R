@@ -73,7 +73,7 @@ covid_geo <- covid[ , list( i = sum( i, na.rm = TRUE ),
                     by = list( lat, long ) ]
 
 save( covid, covid_geo, covid_ts, covid_reg_ts,
-      file = paste0( par$RData, 'covid_19_estimation.RData' ) )
+      file = paste0( par$RData, 'covid_19_statistics.RData' ) )
 
 
 message( paste0( rep( '-', 100 ), collapse = '' ) )
