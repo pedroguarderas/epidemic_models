@@ -1,7 +1,7 @@
 message( paste0( rep( '-', 100 ), collapse = '' ) )
 message( '\tGraphics of statistics' )
 
-load( paste0( par$RData, 'covid_19_estimation.RData' ) )
+load( paste0( par$RData, 'covid_19_statistics.RData' ) )
 
 # Statistics ---------------------------------------------------------------------------------------
 covid_ecu_ts <- covid_reg_ts[ country_region == 'Ecuador' ]
