@@ -28,7 +28,7 @@ if ( !dir.exists( par$src_covid_19 ) ) {
 }
 
 par$src_csse_info <- paste0( par$src_covid_19, 'csse_covid_19_data/csse_covid_19_time_series/' )
-par$src_who_info <- paste0( par$src_covid_19, 'who_covid_19_situation_reports/who_covid_19_sit_rep_time_series' )
+par$src_who_info <- paste0( par$src_covid_19, 'who_covid_19_situation_reports/who_covid_19_sit_rep_time_series/' )
 
 # Folder for RData's
 if ( !dir.exists( par$RData ) ) {
