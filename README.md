@@ -19,3 +19,8 @@ The current project depends of several sources of information:
 
 The previous information was processed with R to obtain some data.tables
 saved in the folder RData.
+
+### Requirements
+
+This project will require that you have installed
+[git](https://git-scm.com/).

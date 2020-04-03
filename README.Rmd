@@ -24,3 +24,6 @@ The current project depends of several sources of information:
 * Information related to number of beds in hospitals provided by [INEC](https://www.ecuadorencifras.gob.ec/camas-y-egresos-hospitalarios/)
 
 The previous information was processed with R to obtain some data.tables saved in the folder RData.
+
+### Requirements
+This project will require that you have installed [git](https://git-scm.com/).
