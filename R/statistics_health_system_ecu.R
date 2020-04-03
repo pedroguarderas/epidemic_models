@@ -1,8 +1,21 @@
 message( paste0( rep( '-', 100 ), collapse = '' ) )
+message( '\tStatistics of beds' )
 
 load( paste0( par$RData, 'inec_beds_hospital_ecu.RData' ) )
 
+# Beds total ---------------------------------------------------------------------------------------
+message( '\tTotal beds' )
+bed_tot <- camas_2018[ , list( dotneumo = sum( dotneumo, na.rm = TRUE ),
+                                disneumo = sum( disneumo, na.rm = TRUE ),
+                                camas_dnor = sum( camas_dnor, na.rm = TRUE ),
+                                camas_disp = sum( camas_disp, na.rm = TRUE ),
+                                dotemerg = sum( dotemerg, na.rm = TRUE ),
+                                dotcinte = sum( dotcinte, na.rm = TRUE ),
+                                dotcintrm = sum( dotcintrm, na.rm = TRUE ),
+                                dototrapo = sum( dototrapo, na.rm = TRUE ) ) ]
+
 # Beds by province ---------------------------------------------------------------------------------
+message( '\tBeds by province' )
 bed_prov <- camas_2018[ , list( dotneumo = sum( dotneumo, na.rm = TRUE ),
                                 disneumo = sum( disneumo, na.rm = TRUE ),
                                 camas_dnor = sum( camas_dnor, na.rm = TRUE ),
@@ -39,7 +52,7 @@ bed_cant <- camas_2018[ , list( dotneumo = sum( dotneumo, na.rm = TRUE ),
 setorder( bed_cant, prov_ubi, cant_ubi )
 
 
-save( bed_cant, bed_prov, bed_prov_tip,
+save( bed_tot, bed_cant, bed_prov, bed_prov_tip,
       file = paste0( par$RData, 'inec_beds_hospital_statistics.RData' ) )
 
 message( paste0( rep( '-', 100 ), collapse = '' ) )
