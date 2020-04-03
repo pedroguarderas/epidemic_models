@@ -22,6 +22,7 @@ camas_2018 <- read.csv( file = paste0( par$data, 'MSP_camas_hospitales/camas_201
 
 camas_2018 <- as.data.table( camas_2018 )
 camas_2018[ , y := 2018 ]
+setnames( camas_2018, 1, 'prov_ubi' )
 
 # Recursos salud año 2017 --------------------------------------------------------------------------
 ras_2017 <- read.csv( file = paste0( par$data, 'MSP_recursos_salud/RAS_2017.csv' ), 
