@@ -8,7 +8,7 @@ par$results <- 'results/'
 par$RData <- 'RData/'
 par$data <- 'data/'
 
-par$use_git_or_https <- FALSE
+par$use_git_or_https <- TRUE
 par$update_git_covid_19 <- TRUE
 if ( par$use_git_or_https ) {
   par$jh_git_data <- 'git@github.com:CSSEGISandData/COVID-19.git'
