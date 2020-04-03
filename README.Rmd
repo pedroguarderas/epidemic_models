@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 This project is created with the main purpose to implement several epidemiologic models and fit 
 such models to information related to COVID-19. 
 
-In particular we are interested to implement a model depen regionalized data.
+In particular we are interested to implement a model that considered regionalized data.
 
 The current project depends of several sources of information:
 
