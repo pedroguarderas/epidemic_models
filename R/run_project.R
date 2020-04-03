@@ -14,5 +14,6 @@ source( 'R/SIR_model_ecu_covid_19.R', encoding = 'UTF-8', echo = FALSE )
 
 # Reporting
 
+
 message( paste0( rep( '-', 100 ), collapse = '' ) )
 gc()
