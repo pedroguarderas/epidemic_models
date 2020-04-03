@@ -18,11 +18,11 @@ if ( par$use_git_or_https ) {
 
 par$src_covid_19 <- 'COVID-19/'
 if ( !dir.exists( par$src_covid_19 ) ) {
-  message( '\tCloning COVID-19 project of John Hopkins' )
+  message( '\tCloning COVID-19 project of Johns Hopkins' )
   system( paste0( 'git clone ', par$jh_git_data ), intern = FALSE )
 } else {
   if ( par$update_git_covid_19 ) {
-    message( '\tUpdating COVID-19 project of John Hopkins' )
+    message( '\tUpdating COVID-19 project of Johns Hopkins' )
     system( 'cd COVID-19; git pull', intern = FALSE )
   }
 }
